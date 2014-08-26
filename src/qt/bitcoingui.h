@@ -9,6 +9,8 @@ class ClientModel;
 class WalletModel;
 class TransactionView;
 class OverviewPage;
+class StatisticsPage;
+class TradePage;
 class ExplorerPage;
 //class PoolBrowser;
 class AddressBookPage;
@@ -61,8 +63,9 @@ private:
     WalletModel *walletModel;
 
     QStackedWidget *centralWidget;
-
+    TradePage *tradePage;
     OverviewPage *overviewPage;
+    StatisticsPage *statisticsPage;
     ExplorerPage *explorerPage;
  //   PoolBrowser *poolBrowser;
 	ChatWindow *chatWindow;
@@ -81,8 +84,10 @@ private:
 
     QMenuBar *appMenuBar;
     QAction *overviewAction;
+    QAction *statisticsAction;
     QAction *explorerAction;
 //    QAction *poolAction;
+    QAction *tradeAction;
 	QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
@@ -147,10 +152,11 @@ public slots:
 private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
+    void gotoTradePage();
+    /** Switch to statistics page*/
+    void gotoStatisticsPage();
     /** Switch to block explorer*/
 void gotoExplorerPage();
-	    /** Switch to block explorer*/
-//    void gotoPoolBrowser();
     /** Switch to history (transactions) page */
     void gotoHistoryPage();
     /** Switch to address book page */

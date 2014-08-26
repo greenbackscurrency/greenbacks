@@ -56,9 +56,14 @@
       </item>
       <item>
        <widget class="QWebView" name="webViewExplorer">
+        <property name="font">
+         <font>
+          <family>Cantarell</family>
+         </font>
+        </property>
         <property name="url">
          <url>
-          <string>about:blank</string>
+          <string>https://chainz.cryptoid.info/gb/</string>
          </url>
         </property>
        </widget>

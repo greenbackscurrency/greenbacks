@@ -106,14 +106,14 @@ void StatisticsPage::updateStatistics()
     ui->rewardBox->setText(subsidy);
     }*/
     
-   /* if(pHardness > hardnessPrevious)
+    if(pHardness > hardnessPrevious)
     {
         ui->diffBox->setText("<b><font color=\"green\">" + hardness + "</font></b>");        
     } else if(pHardness < hardnessPrevious) {
         ui->diffBox->setText("<b><font color=\"red\">" + hardness + "</font></b>");
     } else {
         ui->diffBox->setText(hardness);        
-    } */
+    }
 
     if(pHardness2 > hardnessPrevious2)
     {
@@ -124,14 +124,14 @@ void StatisticsPage::updateStatistics()
         ui->diffBox2->setText(hardness2);
     }
     
-    /*if(pPawrate2 > netPawratePrevious)
+    if(pPawrate2 > netPawratePrevious)
     {
         ui->pawrateBox->setText("<b><font color=\"green\">" + pawrate + " MH/s</font></b>");
     } else if(pPawrate2 < netPawratePrevious) {
         ui->pawrateBox->setText("<b><font color=\"red\">" + pawrate + " MH/s</font></b>");
     } else {
         ui->pawrateBox->setText(pawrate + " MH/s");
-    } */
+    }
 
     if(Qlpawrate != pawratePrevious)
     {
