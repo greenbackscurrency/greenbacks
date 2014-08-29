@@ -20,7 +20,9 @@
 #include "transactionview.h"
 #include "overviewpage.h"
 #include "explorerpage.h"
+#include "newspage.h"
 #include "tradepage.h"
+#include "exchangepage.h"
 #include "statisticspage.h"
 //#include "poolbrowser.h"
 #include "chatwindow.h"
@@ -81,7 +83,7 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     notificator(0),
     rpcConsole(0)
 {
-    
+    setFixedSize(1280, 720);
     setWindowTitle(tr("GreenBacks"));
     qApp->setStyleSheet("QMainWindow { background:rgb(255,255,255);font-family:'Open Sans,sans-serif'; } #frame { } QToolBar QLabel { padding-top:15px;padding-bottom:10px;margin:0px; } #spacer { background:rgb(39,115,33);border:none; } #toolbar2 { border:none;width:10px; background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(39,115,33), stop: 1 rgb(12,208,2)); } #toolbar { border:none;height:100%;padding-top:20px; background: rgb(39,115,33); text-align: left; color: white;min-width:200px;max-width:200px;} QToolBar QToolButton:hover {background-color:qlineargradient(x1: 0, y1: 0, x2: 2, y2: 2,stop: 0 rgb(39,115,33), stop: 1 rgb(12,208,2),stop: 2 rgb(39,115,33));} QToolBar QToolButton { font-family:Century Gothic;padding-left:20px;padding-right:100px;padding-top:10px;padding-bottom:10px; width:100%; color: white; text-align: left; background-color: rgb(39,115,33) } #labelMiningIcon { padding-left:5px;font-family:Century Gothic;width:100%;font-size:10px;text-align:center;color:white; } QMenu { background: rgb(39,115,33); color:white; padding-bottom:10px; } QMenu::item { color:white; background-color: transparent; } QMenu::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(39,115,33), stop: 1 rgb(12,208,2)); } QMenuBar { background: rgb(39,115,33); color:white; } QMenuBar::item { font-size:12px;padding-bottom:12px;padding-top:12px;padding-left:15px;padding-right:15px;color:white; background-color: transparent; } QMenuBar::item:selected { background-color:qlineargradient(x1: 0, y1: 0, x2: 0.5, y2: 0.5,stop: 0 rgb(39,115,33), stop: 1 rgb(12,208,2)); }");
 #ifndef Q_OS_MAC
@@ -111,7 +113,10 @@ BitcoinGUI::BitcoinGUI(QWidget *parent):
     chatWindow = new ChatWindow(this);
     statisticsPage = new StatisticsPage(this);
 explorerPage = new ExplorerPage(this);
+newsPage = new NewsPage(this);
 tradePage = new TradePage(this);
+
+exchangePage = new ExchangePage(this);
 //	poolBrowser = new PoolBrowser(this);
 
     transactionsPage = new QWidget(this);
@@ -132,7 +137,10 @@ tradePage = new TradePage(this);
     centralWidget->addWidget(overviewPage);
 	centralWidget->addWidget(chatWindow);
 centralWidget->addWidget(explorerPage);
+centralWidget->addWidget(newsPage);
 centralWidget->addWidget(tradePage);
+centralWidget->addWidget(exchangePage);
+
 centralWidget->addWidget(statisticsPage);
 //	centralWidget->addWidget(poolBrowser);
     centralWidget->addWidget(transactionsPage);
@@ -286,12 +294,25 @@ statisticsAction = new QAction(QIcon(":/icons/statistics"), tr("&Statistics"), t
     explorerAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_8));
     tabGroup->addAction(explorerAction);
 
+    newsAction = new QAction(QIcon(":/icons/social"), tr("&News"), this);
+    newsAction->setStatusTip(tr("Keep in touch with the latest Crypto Tech News"));
+    newsAction->setToolTip(explorerAction->statusTip());
+    newsAction->setCheckable(true);
+    tabGroup->addAction(newsAction);  
+
     tradeAction = new QAction(QIcon(":/icons/mine"), tr("&Support"), this);
     tradeAction->setStatusTip(tr("Receive Support through Ticket Submission or IRC Chat"));
     tradeAction->setToolTip(tradeAction->statusTip());
     tradeAction->setCheckable(true);
     tradeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_7));
     tabGroup->addAction(tradeAction);
+
+    exchangeAction = new QAction(QIcon(":/icons/ex"), tr("&Trading"), this);
+    exchangeAction->setStatusTip(tr("Trade GB in major exchanges"));
+    exchangeAction->setToolTip(exchangeAction->statusTip());
+    exchangeAction->setCheckable(true);
+    exchangeAction->setShortcut(QKeySequence(Qt::ALT + Qt::Key_9));
+    tabGroup->addAction(exchangeAction);
 	
 //    poolAction = new QAction(QIcon(":/icons/ex"), tr("&Donate"), this);
 //    poolAction->setToolTip(tr("Donate"));
@@ -300,8 +321,12 @@ statisticsAction = new QAction(QIcon(":/icons/statistics"), tr("&Statistics"), t
 //    tabGroup->addAction(poolAction);
 
     connect(explorerAction, SIGNAL(triggered()), this, SLOT(gotoExplorerPage()));
+    connect(newsAction, SIGNAL(triggered()), this, SLOT(gotoNewsPage()));
     connect(tradeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(tradeAction, SIGNAL(triggered()), this, SLOT(gotoTradePage()));
+
+    connect(exchangeAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
+    connect(exchangeAction, SIGNAL(triggered()), this, SLOT(gotoExchangePage()));
 //	connect(poolAction, SIGNAL(triggered()), this, SLOT(gotoPoolBrowser()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(showNormalIfMinimized()));
     connect(overviewAction, SIGNAL(triggered()), this, SLOT(gotoOverviewPage()));
@@ -419,7 +444,10 @@ void BitcoinGUI::createToolBars()
     toolbar->addAction(addressBookAction);
 toolbar->addAction(statisticsAction);
     toolbar->addAction(tradeAction);
+    toolbar->addAction(exchangeAction);
+
 	toolbar->addAction(explorerAction);
+	toolbar->addAction(newsAction);
 //	toolbar->addAction(poolAction);
 	toolbar->addAction(chatAction);
 	toolbar->addAction(exportAction);
@@ -791,20 +819,12 @@ void BitcoinGUI::gotoOverviewPage()
 {
     overviewAction->setChecked(true);
     centralWidget->setCurrentWidget(overviewPage);
-    centralWidget->setMaximumWidth(750);
-    centralWidget->setMaximumHeight(520);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
 }
-
-//void BitcoinGUI::gotoPoolBrowser()
-//{
-//    poolAction->setChecked(true);
-//    centralWidget->setCurrentWidget(poolBrowser);
-//    exportAction->setEnabled(false);
-//    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
-//}
 
 void BitcoinGUI::gotoTradePage()
 {
@@ -813,6 +833,19 @@ void BitcoinGUI::gotoTradePage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
+}
+
+void BitcoinGUI::gotoExchangePage()
+{
+        exchangeAction->setChecked(true);
+    centralWidget->setCurrentWidget(exchangePage);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoExplorerPage()
@@ -822,6 +855,19 @@ void BitcoinGUI::gotoExplorerPage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
+}
+
+void BitcoinGUI::gotoNewsPage()
+{
+    newsAction->setChecked(true);
+    centralWidget->setCurrentWidget(newsPage);
+
+    exportAction->setEnabled(false);
+    disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoStatisticsPage()
@@ -831,6 +877,8 @@ void BitcoinGUI::gotoStatisticsPage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoChatPage()
@@ -840,6 +888,8 @@ void BitcoinGUI::gotoChatPage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoHistoryPage()
@@ -850,6 +900,8 @@ void BitcoinGUI::gotoHistoryPage()
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), transactionView, SLOT(exportClicked()));
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoAddressBookPage()
@@ -860,6 +912,8 @@ void BitcoinGUI::gotoAddressBookPage()
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), addressBookPage, SLOT(exportClicked()));
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoReceiveCoinsPage()
@@ -870,6 +924,8 @@ void BitcoinGUI::gotoReceiveCoinsPage()
     exportAction->setEnabled(true);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
     connect(exportAction, SIGNAL(triggered()), receiveCoinsPage, SLOT(exportClicked()));
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoSendCoinsPage()
@@ -879,6 +935,8 @@ void BitcoinGUI::gotoSendCoinsPage()
 
     exportAction->setEnabled(false);
     disconnect(exportAction, SIGNAL(triggered()), 0, 0);
+    centralWidget->setMaximumWidth(1280);
+    centralWidget->setMaximumHeight(720);
 }
 
 void BitcoinGUI::gotoSignMessageTab(QString addr)

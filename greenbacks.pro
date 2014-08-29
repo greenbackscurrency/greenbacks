@@ -216,6 +216,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/zerocoin/Zerocoin.h \
     src/serialize.h \
     src/qt/tradepage.h \
+    src/qt/exchangepage.h \
     src/strlcpy.h \
     src/main.h \
     src/miner.h \
@@ -286,6 +287,7 @@ HEADERS += src/qt/bitcoingui.h \
     src/txdb-leveldb.h \
 	src/qt/chatwindow.h \
 	src/qt/explorerpage.h \
+src/qt/newspage.h \
 	src/qt/serveur.h
 
 SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
@@ -314,6 +316,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/init.cpp \
     src/net.cpp \
     src/qt/tradepage.cpp \
+    src/qt/exchangepage.cpp \
     src/irc.cpp \
     src/checkpoints.cpp \
     src/addrman.cpp \
@@ -349,6 +352,7 @@ SOURCES += src/qt/bitcoin.cpp src/qt/bitcoingui.cpp \
     src/qt/bitcoinunits.cpp \
     src/qt/qvaluecombobox.cpp \
     src/qt/explorerpage.cpp \
+    src/qt/newspage.cpp \
     src/qt/askpassphrasedialog.cpp \
     src/protocol.cpp \
     src/qt/notificator.cpp \
@@ -386,8 +390,10 @@ FORMS += \
     src/qt/forms/transactiondescdialog.ui \
     src/qt/forms/overviewpage.ui \
     src/qt/forms/sendcoinsentry.ui \
+    src/qt/forms/newspage.ui \
     src/qt/forms/explorerpage.ui \
     src/qt/forms/tradepage.ui \
+    src/qt/forms/exchangepage.ui \
     src/qt/forms/askpassphrasedialog.ui \
     src/qt/forms/rpcconsole.ui \
 src/qt/forms/statisticspage.ui \

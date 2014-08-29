@@ -62,7 +62,7 @@ void ExplorerPage::GetHttpContent() {
   //QNetworkRequest request;
   //url.setUrl("http://explorer.com/search?q=");
   //request.setHeader(QNetworkRequest::ContentTypeHeader,QVariant("application/x-www-form-urlencoded"));
-  QString url = "http://explorer.greenbackscurrency.com/";            
+  QString url = "https://chainz.cryptoid.info/gb/";            
   //QString data = ui->searchData->text();
   //QString final = url + data;
   //QByteArray postData;

@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>920</width>
-    <height>590</height>
+    <width>1280</width>
+    <height>720</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -91,7 +91,7 @@ border-radius:5px</string>
     <widget class="QWebView" name="webViewTrade">
      <property name="url">
       <url>
-       <string>http://www.greenbackscurrency.com/site/submit-ticket/</string>
+       <string>about:blank</string>
       </url>
      </property>
     </widget>

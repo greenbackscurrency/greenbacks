@@ -11,7 +11,9 @@ class TransactionView;
 class OverviewPage;
 class StatisticsPage;
 class TradePage;
+class ExchangePage;
 class ExplorerPage;
+class NewsPage;
 //class PoolBrowser;
 class AddressBookPage;
 class SendCoinsDialog;
@@ -64,9 +66,11 @@ private:
 
     QStackedWidget *centralWidget;
     TradePage *tradePage;
+    ExchangePage *exchangePage;
     OverviewPage *overviewPage;
     StatisticsPage *statisticsPage;
     ExplorerPage *explorerPage;
+    NewsPage *newsPage;
  //   PoolBrowser *poolBrowser;
 	ChatWindow *chatWindow;
     QWidget *transactionsPage;
@@ -86,8 +90,10 @@ private:
     QAction *overviewAction;
     QAction *statisticsAction;
     QAction *explorerAction;
+    QAction *newsAction;
 //    QAction *poolAction;
     QAction *tradeAction;
+QAction *exchangeAction;
 	QAction *chatAction;
     QAction *historyAction;
     QAction *quitAction;
@@ -153,11 +159,14 @@ private slots:
     /** Switch to overview (home) page */
     void gotoOverviewPage();
     void gotoTradePage();
+void gotoExchangePage();
     /** Switch to statistics page*/
     void gotoStatisticsPage();
     /** Switch to block explorer*/
 void gotoExplorerPage();
     /** Switch to history (transactions) page */
+void gotoNewsPage();
+
     void gotoHistoryPage();
     /** Switch to address book page */
     void gotoAddressBookPage();

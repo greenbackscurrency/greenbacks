@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>575</width>
-    <height>529</height>
+    <width>620</width>
+    <height>768</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -18,7 +18,7 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>575</width>
+    <width>620</width>
     <height>16777215</height>
    </size>
   </property>
@@ -60,7 +60,7 @@ font-family:'Open Sans,sans-serif';</string>
        </property>
        <property name="maximumSize">
         <size>
-         <width>450</width>
+         <width>550</width>
          <height>16777215</height>
         </size>
        </property>
@@ -427,19 +427,6 @@ font-family:'Open Sans,sans-serif';</string>
          </spacer>
         </item>
         <item>
-         <widget class="QWidget" name="widget" native="true">
-          <property name="minimumSize">
-           <size>
-            <width>275</width>
-            <height>250</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">image: url(:/images/wallet);</string>
-          </property>
-         </widget>
-        </item>
-        <item>
          <spacer name="verticalSpacer">
           <property name="orientation">
            <enum>Qt::Vertical</enum>
@@ -452,6 +439,34 @@ font-family:'Open Sans,sans-serif';</string>
           </property>
          </spacer>
         </item>
+        <item>
+         <widget class="QWidget" name="widget" native="true">
+          <property name="minimumSize">
+           <size>
+            <width>275</width>
+            <height>250</height>
+           </size>
+          </property>
+          <property name="styleSheet">
+           <string notr="true"/>
+          </property>
+          <widget class="QWebView" name="webView">
+           <property name="geometry">
+            <rect>
+             <x>10</x>
+             <y>10</y>
+             <width>231</width>
+             <height>181</height>
+            </rect>
+           </property>
+           <property name="url">
+            <url>
+             <string>http://greenbackscurrency.com/site/main.htm</string>
+            </url>
+           </property>
+          </widget>
+         </widget>
+        </item>
        </layout>
       </widget>
      </item>
@@ -459,6 +474,13 @@ font-family:'Open Sans,sans-serif';</string>
    </item>
   </layout>
  </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QWebView</class>
+   <extends>QWidget</extends>
+   <header>QtWebKit/QWebView</header>
+  </customwidget>
+ </customwidgets>
  <resources/>
  <connections/>
 </ui>

@@ -1,4 +1,4 @@
-IDI_ICON1 ICON DISCARDABLE "icons/newpiggycoin.ico"
+IDI_ICON1 ICON DISCARDABLE "icons/greenbacks.ico"
 
 #include <windows.h>             // needed for VERSIONINFO
 #include "../../clientversion.h" // holds the needed client version information
@@ -18,14 +18,14 @@ BEGIN
     BEGIN
         BLOCK "040904E4" // U.S. English - multilingual (hex)
         BEGIN
-            VALUE "CompanyName",        "newpiggycoin"
-            VALUE "FileDescription",    "newpiggycoin-Qt (OSS GUI client for newpiggycoin)"
+            VALUE "CompanyName",        "greenbacks"
+            VALUE "FileDescription",    "greenbacks-Qt (OSS GUI client for greenbacks)"
             VALUE "FileVersion",        VER_FILEVERSION_STR
-            VALUE "InternalName",       "newpiggycoin-qt"
-            VALUE "LegalCopyright",     "2009-2014 The Bitcoin developers, 2012-2014 The Zerocoin & PPCoin developers, 2014 The newpiggycoin developers"
+            VALUE "InternalName",       "greenbacks-qt"
+            VALUE "LegalCopyright",     "2009-2014 The Bitcoin developers, 2012-2014 The Zerocoin & PPCoin developers, 2014 The greenbacks developers"
             VALUE "LegalTrademarks1",   "Distributed under the MIT/X11 software license, see the accompanying file COPYING or http://www.opensource.org/licenses/mit-license.php."
-            VALUE "OriginalFilename",   "newpiggycoin-qt.exe"
-            VALUE "ProductName",        "newpiggycoin-Qt"
+            VALUE "OriginalFilename",   "greenbacks-qt.exe"
+            VALUE "ProductName",        "greenbacks-Qt"
             VALUE "ProductVersion",     VER_PRODUCTVERSION_STR
         END
     END
